@@ -1,89 +1,171 @@
 @import url('https://api.fontshare.com/css?f[]=general-sans@700,400&display=swap');
 
+:root {
+    --bg-dark: #10100f;
+    --bg-card: #1c1d1b;
+    --bg-hover: #232422;
+    --text-primary: #e4e4e7;
+    --text-secondary: #a1a1aa;
+    --border: #2d302d;
+
+    --accent: #b6a93f;
+    --accent-light: #cabc54;
+    --accent-dark: #958c35;
+    --accent-bg: rgba(182, 169, 63, 0.15);
+
+    --danger: #c75a4a;
+    --danger-light: #da6b5a;
+    --danger-dark: #9e463b;
+
+    --radius: 6px;
+    --transition: 0.25s ease;
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
 body {
     font-family: 'General Sans', sans-serif;
-    background-color: #121212;
-    color: #e0e0e0;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
     display: flex;
     justify-content: center;
-    padding: 2rem;
+    align-items: flex-start;
+    padding: 3rem 1rem;
+    min-height: 100vh;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .container {
-    background-color: #1e1e1e;
+    background-color: var(--bg-card);
     padding: 2rem;
-    border-radius: 16px;
-    width: 100%;
+    border-radius: var(--radius);
     max-width: 600px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--accent-bg);
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 h1 {
     margin: 0;
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: #fff;
+    letter-spacing: -0.02em;
 }
 
 .subtitle {
-    font-size: 0.9rem;
-    color: #aaa;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
     margin-bottom: 1.5rem;
 }
 
 .task-input {
     display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+    gap: 0.6rem;
+    margin-bottom: 1.2rem;
 }
 
 .task-input input {
     flex: 1;
-    padding: 0.6rem;
-    border-radius: 8px;
-    border: none;
-    background-color: #2a2a2a;
-    color: #e0e0e0;
-    transition: all 0.2s ease;
+    padding: 0.7rem 1rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background-color: var(--bg-hover);
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.task-input input::placeholder {
+    color: var(--text-secondary);
 }
 
 .task-input input:focus {
-    outline: 2px solid #4f46e5;
-    background-color: #333;
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+button {
+    cursor: pointer;
+    border-radius: var(--radius);
+    transition: var(--transition);
+    border: none;
 }
 
 .task-input button {
-    background-color: #4f46e5;
+    background-color: var(--accent);
     color: #fff;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--radius);
     padding: 0.6rem 1rem;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color var(--transition);
 }
 
 .task-input button:hover {
-    background-color: #5e4ff7;
+    background-color: var(--accent-light);
+}
+
+.task-input button svg {
+    stroke: currentColor;
+}
+
+.btn-danger {
+    background-color: var(--danger);
+    color: #fff;
+    padding: 0.5rem 0.9rem;
+}
+
+.btn-danger:hover {
+    background-color: var(--danger-light);
+}
+
+.btn-danger:active {
+    background-color: var(--danger-dark);
 }
 
 .filters {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.6rem;
     margin-bottom: 1rem;
+    flex-wrap: wrap;
 }
 
 .filters button {
-    border-radius: 6px;
-    border: none;
-    background-color: #2a2a2a;
-    color: #e0e0e0;
-    padding: 0.4rem 0.8rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    background-color: var(--bg-hover);
+    color: var(--text-secondary);
+    padding: 0.45rem 1rem;
+    border: 1px solid transparent;
 }
 
-.filters button.active,
+.filters button.active {
+    background-color: var(--accent-bg);
+    color: #fff;
+}
+
 .filters button:hover {
-    background-color: #4f46e5;
+    background-color: var(--accent-dark);
     color: #fff;
 }
 
@@ -91,20 +173,24 @@ h1 {
     list-style: none;
     padding: 0;
     margin: 0;
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: var(--radius);
 }
 
 .task-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.6rem 1rem;
-    border-bottom: 1px solid #333;
-    transition: background-color 0.2s ease;
+    padding: 0.5rem 0.9rem;
+    border-bottom: 1px solid var(--border);
+    transition: var(--transition);
+    border-radius: var(--radius);
+    gap: 0.5rem;
 }
 
-
 .task-item:hover {
-    background-color: #2c2c2c;
+    background-color: var(--bg-hover);
 }
 
 .task-item label {
@@ -112,48 +198,11 @@ h1 {
     align-items: center;
     gap: 0.6rem;
     cursor: pointer;
-    position: relative;
 }
 
 .task-item span.done {
     text-decoration: line-through;
-    color: #888;
-}
-
-.task-item button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.2s ease, color 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    padding: 0.2rem;
-}
-
-.task-item button svg {
-    stroke: #f87171; /* vermelho padrão */
-    width: 20px;
-    height: 20px;
-}
-
-.task-item button:hover {
-    background-color: #f87171; /* fundo vermelho */
-}
-
-.task-item button:hover svg {
-    stroke: #fff; /* ícone branco */
-}
-
-/* --- Checkbox Customizado --- */
-.custom-checkbox {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    position: relative;
+    color: var(--text-secondary);
 }
 
 .custom-checkbox input {
@@ -161,62 +210,201 @@ h1 {
 }
 
 .custom-checkbox .checkmark {
-    width: 16px;
-    height: 16px;
-    border: 2px solid #555;
-    border-radius: 4px;
-    background-color: #2a2a2a;
-    position: relative;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--accent-dark);
+    border-radius: 5px;
+    background-color: #222;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    transition: var(--transition);
 }
 
-.custom-checkbox input:checked + .checkmark {
-    background-color: #4f46e5;
-    border-color: #4f46e5;
+.custom-checkbox input:checked+.checkmark {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-bg);
 }
 
 .custom-checkbox .checkmark::after {
     content: '';
-    width: 6px;
-    height: 10px;
+    width: 5px;
+    height: 9px;
     border: solid #fff;
     border-width: 0 2px 2px 0;
     transform: translateY(-2px) rotate(45deg);
     display: none;
 }
 
-.custom-checkbox input:checked + .checkmark::after {
+.custom-checkbox input:checked+.checkmark::after {
     display: block;
 }
 
+.task-item button {
+    background: none;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius);
+}
+
+.task-item button svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--danger);
+    transition: var(--transition);
+}
+
+.task-item button:hover {
+    background-color: var(--danger);
+}
+
+.task-item button:hover svg {
+    stroke: #fff;
+    transform: scale(1.05);
+}
+
 .footer {
-    margin-top: 1rem;
+    margin-top: 1.2rem;
     display: flex;
     justify-content: space-between;
     font-size: 0.9rem;
-    color: #bbb;
+    color: var(--text-secondary);
+    align-items: center;
 }
 
 .footer button {
-    background-color: #2a2a2a;
-    color: #e0e0e0;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    padding: 0.3rem 0.8rem;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    background-color: var(--bg-hover);
+    color: var(--text-primary);
+    padding: 0.4rem 0.9rem;
 }
 
 .footer button:hover {
-    background-color: #4f46e5;
-    color: white;
+    background-color: var(--accent);
+    color: #fff;
 }
 
 .empty {
     text-align: center;
     font-style: italic;
-    color: #888;
+    color: var(--text-secondary);
+    padding: 1rem 0;
+}
+
+.search-bar {
+    display: flex;
+    width: 93%;
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background-color: var(--bg-hover);
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    transition: var(--transition);
+}
+
+.search-bar::placeholder {
+    color: var(--text-secondary);
+}
+
+.search-bar:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+.sorting {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+}
+
+.sorting label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.sorting select {
+    padding: 0.5rem 0.8rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background-color: var(--bg-hover);
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.sorting select:hover {
+    border-color: var(--accent);
+}
+
+.sorting select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+.task-input input[type="date"] {
+    width: 160px;
+    padding: 0.55rem 0.8rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background-color: var(--bg-hover);
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.task-input input[type="date"]:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+.task-item .deadline {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-right: 0;
+    white-space: nowrap;
+}
+
+.task-item .deadline.due-soon {
+    color: var(--accent);
+}
+
+.task-item .deadline.past-due {
+    color: var(--danger);
+}
+
+.task-input input[type="date"] {
+    width: 160px;
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background-color: var(--bg-hover);
+    color: var(--text-primary);
+    transition: var(--transition);
+    font-family: 'General Sans', sans-serif;
+    font-size: 0.9rem;
+}
+
+.task-input input[type="date"]::placeholder {
+    color: var(--text-secondary);
+}
+
+.task-input input[type="date"]:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+.task-input input[type="date"]::-webkit-inner-spin-button,
+.task-input input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(100%) brightness(70%);
+}
+
+.task-input input[type="date"]::-moz-focus-inner {
+    border: 0;
 }
